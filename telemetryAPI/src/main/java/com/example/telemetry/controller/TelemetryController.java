@@ -18,6 +18,6 @@ public class TelemetryController {
     @PostMapping
     public ResponseEntity<String> ingest(@RequestBody TelemetryEventDTO event) {
         service.processEvent(event);
-        return ResponseEntity.ok("Event received");
+        return ResponseEntity.ok("Event queued");
     }
 }
