@@ -21,7 +21,7 @@ public class TelemetryService {
 
     // Called by Controller (API path)
     public void processEvent(TelemetryEventDTO dto) {
-        // producer.sendEvent("telemetry-events", dto.toString());
+        producer.sendEvent("telemetry-events", dto);
     }
 
     // Called by Kafka Consumer (storage path)

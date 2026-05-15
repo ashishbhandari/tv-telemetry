@@ -11,6 +11,11 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
+/**
+ * KafkaProducerConfig sets up the necessary beans for producing messages to Kafka.
+ * It configures the producer with the bootstrap server and serializers for keys and values.
+ * - Within a Java application, we can use the Kafka client
+ */
 @Configuration
 public class KafkaProducerConfig {
     
@@ -25,6 +30,7 @@ public class KafkaProducerConfig {
         );
 
         config.put(
+            
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
             StringSerializer.class
         );
