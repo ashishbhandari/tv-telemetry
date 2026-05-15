@@ -17,6 +17,17 @@ public class TelemetryProcessingEngine {
         this.repository = repository;
     }
 
+    /**
+     * get called by Consumer where consumer stays thin and real business logic processing layer.
+     *
+     * Validate requried fields
+     * enrich events
+     * Update metrucs
+     *
+     * Processing engine map to Db entity
+     * Processing model to Database model
+     * @param dto
+     */
     public void process(TelemetryEventDTO dto) {
         System.out.println(
                 "Processing event: " + dto.getEventId()

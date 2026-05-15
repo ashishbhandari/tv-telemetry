@@ -17,6 +17,14 @@ public class KafkaProducerService {
         this.objectMapper = objectMapper;
     }
 
+    /**
+     * Kafka producer service sending events asynchronosul, to kafka (getting called by service)
+     * Converts JJav object to Json String, then publishes message to Kafka
+     *
+     *  Kafka will holds the events after this which will allows async processing
+     * @param topic
+     * @param dto
+     */
     public void sendEvent(String topic, TelemetryEventDTO dto) {
         try {
             String json = objectMapper.writeValueAsString(dto);
@@ -25,7 +33,6 @@ public class KafkaProducerService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        kafkaTemplate.send(topic, event);
     }
 
 }

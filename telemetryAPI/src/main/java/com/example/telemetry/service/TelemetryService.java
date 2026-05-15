@@ -11,15 +11,18 @@ import org.springframework.stereotype.Service;
 public class TelemetryService {
 
     private final TelemetryRepository repository;
-    
+
     private final KafkaProducerService producer;
 
     public TelemetryService(KafkaProducerService producer, TelemetryRepository repository) {
         this.producer = producer;
-        this.repository = repository;   
+        this.repository = repository;
     }
 
-    // Called by Controller (API path)
+    // Called by Controller (API path), sending events to kafka
+    /*
+     * instead of saving directly to DB, event getting sent asynchronously to Kafka
+     */
     public void processEvent(TelemetryEventDTO dto) {
         producer.sendEvent("telemetry-events", dto);
     }
@@ -41,6 +44,6 @@ public class TelemetryService {
         e.setTimestamp(dto.getTimestamp());
         return e;
     }
-    
+
 
 }

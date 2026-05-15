@@ -25,6 +25,13 @@ public class TelemetryConsumer {
         this.processingEngine = processingEngine;
     }
 
+    /**
+     * Listens to kafka
+     * receives Json String
+     *
+     * converts Kafka JSON message back into Java object
+     * @param message
+     */
     @KafkaListener(
             topics = "telemetry-events",
             groupId = "telemetry-group")
