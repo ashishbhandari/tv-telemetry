@@ -20,4 +20,13 @@ public interface TelemetryRepository extends JpaRepository<TelemetryEvent, Long>
 
     @Query("SELECT t.errorCode, COUNT(t) FROM TelemetryEvent t WHERE t.errorCode IS NOT NULL GROUP BY t.errorCode ORDER BY COUNT(t) DESC")
     List<Object[]> topErrorCodes();
+
+    @Query("""
+                SELECT t.deviceId, COUNT(t)
+                FROM TelemetryEvent t
+                WHERE t.eventType = 'playback_error'
+                GROUP BY t.deviceId
+                ORDER BY COUNT(t) DESC
+            """)
+    List<Object[]> topFailingDevices();
 }

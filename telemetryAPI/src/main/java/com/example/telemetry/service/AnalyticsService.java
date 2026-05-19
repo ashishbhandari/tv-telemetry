@@ -46,4 +46,17 @@ public class AnalyticsService {
 
         return result;
     }
+
+    public List<Map<String, Object>> getTopFailingDevices() {
+
+        List<Object[]> results =
+                repository.topFailingDevices();
+
+        return results.stream()
+                .map(r -> Map.of(
+                        "deviceId", r[0],
+                        "errors", r[1]
+                ))
+                .toList();
+    }
 }

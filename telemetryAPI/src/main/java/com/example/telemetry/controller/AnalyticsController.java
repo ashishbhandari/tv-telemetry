@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/analytics")
 public class AnalyticsController {
@@ -37,5 +40,10 @@ public class AnalyticsController {
     @GetMapping("/top-error-codes")
     public Object topErrorCodes() {
         return service.topErrorCodes();
+    }
+
+    @GetMapping("/top-failing-devices")
+    public List<Map<String, Object>> topFailingDevices() {
+        return service.getTopFailingDevices();
     }
 }
