@@ -6,15 +6,21 @@ import com.example.telemetry.dto.TelemetryEventDTO;
 import com.example.telemetry.metrics.MetricsStore;
 import com.example.telemetry.model.TelemetryEvent;
 import com.example.telemetry.repository.TelemetryRepository;
+import com.example.telemetry.service.RealtimeMetricsService;
 import org.springframework.stereotype.Service;
 
+/**
+ * Acting as a orchestration layer for the telemetry events.
+ */
 @Service
 public class TelemetryProcessingEngine {
 
     private final TelemetryRepository repository;
+    private final RealtimeMetricsService realtimeMetricsService;
 
-    public TelemetryProcessingEngine(TelemetryRepository repository) {
+    public TelemetryProcessingEngine(TelemetryRepository repository, RealtimeMetricsService realtimeMetricsService) {
         this.repository = repository;
+        this.realtimeMetricsService =realtimeMetricsService;
     }
 
     /**
@@ -38,6 +44,13 @@ public class TelemetryProcessingEngine {
 
         // STEP 2: Enrich
         ProcessedTelemetryEvent processed = enrich(dto);
+
+        if ("playback_error".equals(dto.getEventType())) {
+            realtimeMetricsService.incrementPlaybackErrors();
+            realtimeMetricsService.incrementRegionErrors(dto.getRegion());
+
+            System.out.println("Redis metrics updated for region: " + dto.getRegion());
+        }
 
         // STEP 3: Aggregate (metrics logic)
         updateMetrics(processed);
