@@ -20,18 +20,19 @@ public class TelemetryProcessingEngine {
 
     public TelemetryProcessingEngine(TelemetryRepository repository, RealtimeMetricsService realtimeMetricsService) {
         this.repository = repository;
-        this.realtimeMetricsService =realtimeMetricsService;
+        this.realtimeMetricsService = realtimeMetricsService;
     }
 
     /**
      * get called by Consumer where consumer stays thin and real business logic processing layer.
-     *
+     * <p>
      * Validate requried fields
      * enrich events
      * Update metrucs
-     *
+     * <p>
      * Processing engine map to Db entity
      * Processing model to Database model
+     *
      * @param dto
      */
     public void process(TelemetryEventDTO dto) {

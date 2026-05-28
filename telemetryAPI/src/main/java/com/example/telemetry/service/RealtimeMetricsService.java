@@ -37,7 +37,7 @@ public class RealtimeMetricsService {
                 redisTemplate.opsForValue()
                         .get("playback_errors_total"),
 
-                "region:UK:errors",
+                "region_UK_errors",
                 redisTemplate.opsForValue()
                         .get("region:UK:errors")
         );
